@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="./script.js"></script>
 </head>
 <body>
     <nav class="ctn">
@@ -38,19 +39,19 @@
         <div class="flex-wrapper">
             <div class="searchbar">
                 <input type="text" placeholder="Rechercher un commerçant">
-                <a href="">
+                <a href="./search.php?search=">
                     <span class="icon icon-black material-symbols-outlined">
                         search
                     </span>
                 </a>
             </div>
-            <a href="./log.html" class="btn btn-desktop">
+            <a href="./log.php" class="btn btn-desktop">
                 <span>Je suis un commerçant</span>
                 <span class="icon material-symbols-outlined">
                 arrow_forward
                 </span>
             </a> 
-            <a href="./log.html" class="btn btn-mobile">
+            <a href="./log.php" class="btn btn-mobile">
                 <span class="material-symbols-outlined">
                     store
                 </span>
@@ -58,47 +59,127 @@
         </div>
     </nav>
     <main>
+        <div class="hero ctn">
+            <div class="first">
+                <h1>Luttons contre la précarité alimentaire des étudiants</h1>
+                <p>Trouvez des commerçants à Laval et mangez à mondre prix.</p>
+                <a href="" class="btn">
+                    <span>Trouver un commerçant</span>
+                    <span class="icon material-symbols-outlined">
+                    arrow_forward
+                    </span>
+                </a>
+            </div>
+            <div class="second">
+                <img src="img/market.webp" alt="">
+            </div>
+        </div>
         <div class="recommendations ctn">
             <div class="logo-title">
-                <h2>Résultats de recherche</h2>
+                <img class="img-icon" src="img/antigaspi.png" alt="">
+                <h2>Nos commerçants partenaires</h2>
+            </div>
+            <div class="card-wrapper">
+                <div class="leave"></div>
+                <div class="card">
+                    <span class="material-symbols-outlined close">
+                    close
+                    </span>
+                    <img src="" alt="">
+                    <div class="text-wrapper">
+                        <div class="title">
+                            <h2></h2>
+                            <p></p>
+                        </div>
+                        <div class="location">
+                            <p class="label">Localisation</p>
+                            <a class="icon-link" href="">
+                                <span class="material-symbols-outlined">
+                                location_on
+                                </span>
+                                <p></p>
+                            </a>
+                        </div>
+                        <div class="schedule">
+                            <p class="label">Horaires de retrait</p>
+                            <div class="table">
+                                <p id="monday" class="day">Lundi : </p>
+                                <p id="tuesday" class="day">Mardi : </p>
+                                <p id="wednesday" class="day">Mercredi : </p>
+                                <p id="thursday" class="day">Jeudi : </p>
+                                <p id="friday" class="day">Vendredi : </p>
+                                <p id="saturday" class="day">Samedi : </p>
+                                <p id="sunday" class="day">Dimanche : </p>
+                            </div>
+                        </div>
+                        <div class="stock">
+                            <p class="label">Stock du jour</p>
+                            <p class="text"></p>
+                        </div>
+                        <a href="" class="btn fw">
+                            <span>Je réserve</span>
+                            <span class="material-symbols-outlined">
+                            how_to_reg
+                            </span>
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="items">
-                <div id="0" class="item">
-                    <img src="" alt="">
-                    <div class="item-text">
-                        <h3>Market Laval</h3>
-                        <span class="info">Supermarché · 23 All. du Vieux Saint-Louis, 53000 Laval</span>
-                        <p>Retrait à 18h00</p>
-                    </div>
-                    
-                </div>
-                <div id="0" class="item">
-                    <img src="" alt="">
-                    <div class="item-text">
-                        <h3>Market Laval</h3>
-                        <span class="info">Supermarché · 23 All. du Vieux Saint-Louis, 53000 Laval</span>
-                        <p>Retrait à 18h00</p>
-                    </div>
-                    
-                </div>
-                <div id="0" class="item">
-                    <img src="" alt="">
-                    <div class="item-text">
-                        <h3>Market Laval</h3>
-                        <span class="info">Supermarché · 23 All. du Vieux Saint-Louis, 53000 Laval</span>
-                        <p>Retrait à 18h00</p>
-                    </div>
-                    
-                </div>
-                <div id="0" class="item">
-                    <img src="" alt="">
-                    <div class="item-text">
-                        <h3>Market Laval</h3>
-                        <span class="info">Supermarché · 23 All. du Vieux Saint-Louis, 53000 Laval</span>
-                        <p>Retrait à 18h00</p>
-                    </div>    
-                </div>
+                <?php
+                    $day = date("l");
+                
+                    // Connexion à la base de données
+                    $dbHost = "localhost";
+                    $dbName = "redeat";
+                    $dbUser = "root";
+                    $dbPass = "root";
+
+                    try {
+                        $pdo = new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
+                        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                        
+                        $query = "SELECT id, name, type, `street-number`, `street-name`, `city`, `zip-code`,  `monday-start`, `monday-end`, `monday-stock`, `monday-open`, `tuesday-start`, `tuesday-end`, `tuesday-stock`, `tuesday-open`, `wednesday-start`, `wednesday-end`, `wednesday-stock`, `wednesday-open`, `thursday-start`, `thursday-end`, `thursday-stock`, `thursday-open`, `friday-start`, `friday-end`, `friday-stock`, `friday-open`, `saturday-start`, `saturday-end`, `saturday-stock`, `saturday-open`, `sunday-start`, `sunday-end`, `sunday-stock`, `sunday-open` FROM user";
+                        $stmt = $pdo->prepare($query);
+                        $stmt->execute();
+                        $datas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                        if ($datas){
+                            foreach ($datas as $data) {
+                                $openingHoursColumn = strtolower($day) . "-open";
+                                ?>
+                                    <div class="item" data-shop="<?php echo htmlspecialchars(json_encode($data), ENT_QUOTES, 'UTF-8') ?>">
+                                        <img src="./image.php?user_id=<?php echo $data["id"] ?>" alt="<?php echo $data["name"] ?>">
+                                        <div class="item-text">
+                                            <h3><?php echo $data["name"] ?></h3>
+                                            <span class="info"><?php echo $data["type"] ?> · <?php echo $data["street-number"] ?> <?php echo $data["street-name"] ?>, <?php echo $data["zip-code"] ?> <?php echo $data["city"] ?></span>
+                                            <?php 
+                                                if ($data[$openingHoursColumn]) {
+                                                    ?>
+                                                    <p>Retrait entre <?php echo $data[strtolower($day) . "-start"]?> et <?php echo $data[strtolower($day) . "-end"]?> · <?php echo $data[strtolower($day) . "-stock"]?> paniers à sauver</p>
+                                                    <?php
+                                                } else { ?>
+                                                    <p>Fermé</p>
+                                                    <?php 
+                                                }
+                                            ?>
+                                        </div>
+                                        
+                                    </div>
+                                <?php
+                            }
+                        }
+                    } catch (PDOException $e) {
+                        
+                    }
+                ?>
             </div>
+            <a href="./search.php" class="btn">
+                <span>Découvrir plus de commerçants</span>
+                <span class="icon material-symbols-outlined">
+                arrow_forward
+                </span>
+            </a>
         </div>
         <div class="how ctn">
             <div class="wrapper">
@@ -118,5 +199,17 @@
             
         </div>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.querySelector('.searchbar input');
+            const searchLink = document.querySelector('.searchbar a');
+
+            searchInput.addEventListener('input', function(event) {
+                const searchTerm = event.target.value.trim();
+                const encodedSearchTerm = encodeURIComponent(searchTerm);
+                searchLink.href = `./search.php?search=${encodedSearchTerm}`;
+            });
+        });
+    </script>
 </body>
 </html>

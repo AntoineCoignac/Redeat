@@ -3,7 +3,7 @@ session_start(); // Démarre la session
 
 // Vérifie si l'utilisateur est connecté
 if (!isset($_SESSION["user_id"])) {
-    header("Location: login.html"); // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
+    header("Location: login.php"); // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
     exit();
 }
 
@@ -135,7 +135,7 @@ try {
       <div class="little-ctn">
         <div class="log-form">
           <h2>Je modifie mon commerce</h2>
-          <form action="" enctype="multipart/form-data">
+          <form action="update-action.php" method="post" enctype="multipart/form-data">
             <div class="separator">
               <span>Informations sur le commerce</span>
             </div>
@@ -505,7 +505,8 @@ try {
               <span>Sauvegarder</span>
               <span class="material-symbols-outlined"> save </span>
             </button>
-            <a href="./edit-password.html">Modifier le mot de passe</a>
+            <a href="./update-password.php">Modifier le mot de passe</a>
+            <a href="./logout.php">Se déconnecter</a>
           </form>
         </div>
       </div>

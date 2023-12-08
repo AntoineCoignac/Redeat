@@ -1,3 +1,15 @@
+<?php
+
+session_start();
+
+// Vérifie si l'utilisateur est connecté
+if (isset($_SESSION["user_id"])) {
+    header("Location: manage.php"); 
+    exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -46,61 +58,8 @@
     <main>
       <div class="little-ctn">
         <div class="log-form">
-          <h2>Je m'inscris en 2 minutes</h2>
-          <form action="register-action.php" method="post" enctype="multipart/form-data">
-            <div class="separator">
-              <span>Informations sur le commerce</span>
-            </div>
-            <div class="field">
-              <label for="name">Nom du commerce</label>
-              <input name="name" type="text" placeholder="Nom du commerce" />
-            </div>
-            <div class="field">
-              <label for="type">Type du commerce</label>
-              <select name="type">
-                <option value="Supermarché" selected>Supermarché</option>
-                <option value="Epicerie">Epicerie</option>
-                <option value="Restaurant">Restaurant</option>
-                <option value="Boulangerie">Boulangerie</option>
-                <option value="Producteur">Producteur</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="image">Image du commerce</label>
-              <input type="file" name="image" />
-            </div>
-            <div class="separator">
-              <span>Localisation</span>
-            </div>
-            <div class="field">
-              <label for="street-number">Numéro de voie</label>
-              <input
-                type="number"
-                name="street-number"
-                placeholder="Numéro de voie"
-              />
-            </div>
-            <div class="field">
-              <label for="street-name">Nom de la voie</label>
-              <input
-                type="text"
-                name="street-name"
-                placeholder="Nom de la voie"
-              />
-            </div>
-            <div class="field">
-              <label for="city">Ville</label>
-              <input type="text" name="city" placeholder="Ville" />
-            </div>
-            <div class="field">
-              <label for="zip-code">Code postal</label>
-              <input
-                type="text"
-                name="zip-code"
-                pattern="(?:0[1-9]|[1-8]\d|9[0-8])\d{3}"
-                placeholder="Code postal"
-              />
-            </div>
+          <h2>Je me connecte en 1 clic</h2>
+          <form action="login-action.php" method="post">
             <div class="separator">
               <span>Informations de connexion</span>
             </div>
@@ -112,17 +71,13 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" name="password" placeholder="Mot de passe">
             </div>
-            <div class="field">
-                <label for="password-c">Confirmer le mot de passe</label>
-                <input type="password" name="password-c" placeholder="Mot de passe">
-            </div>
             <button class="btn fw" type="submit">
-                <span>Je m'inscris</span>
+                <span>Je me connecte</span>
                 <span class="material-symbols-outlined">
-                  add_business
+                  login
                   </span>
             </button>
-            <a href="./login.html">J'ai déjà un compte</a>
+            <a href="./register.php">Je n'ai pas de compte</a>
           </form>
         </div>
       </div>

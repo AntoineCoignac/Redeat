@@ -1,3 +1,15 @@
+<?php
+session_start(); // Démarre la session
+
+// Vérifie si l'utilisateur est connecté
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php"); // Redirige vers la page de connexion si l'utilisateur n'est pas connecté
+    exit();
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -11,7 +23,7 @@
     />
   </head>
   <body>
-    <div class="ctn logo-nav">
+  <div class="ctn logo-nav">
       <a href="./" class="logo">
         <svg
           width="121"
@@ -44,31 +56,26 @@
       </a>
     </div>
     <main>
-      <div class="little-ctn">
-        <div class="log-form">
-          <h2>Je me connecte en 1 clic</h2>
-          <form action="login-action.php" method="post">
-            <div class="separator">
-              <span>Informations de connexion</span>
+        <div class="little-ctn">
+            <div class="log-form">
+                <h2>Je modifie mon mot de passe</h2>
+                <form action="update-password-action.php" method="post" enctype="multipart/form-data">
+                  <div class="field">
+                      <label for="old-password">Ancien mot de passe</label>
+                      <input type="password" name="old-password" placeholder="Ancien mot de passe">
+                  </div>
+                  <div class="field">
+                      <label for="password">Nouveau mot de passe</label>
+                      <input type="password" name="password" placeholder="Nouveau mot de passe">
+                  </div>
+                  <button class="btn fw" type="submit">
+                    <span>Sauvegarder</span>
+                    <span class="material-symbols-outlined"> save </span>
+                  </button>
+                  <a href="./manage.php">Retourner à l'administration</a>
+                </form>
             </div>
-            <div class="field">
-                <label for="email">E-mail</label>
-                <input type="email" name="email" placeholder="E-mail">
-            </div>
-            <div class="field">
-                <label for="password">Mot de passe</label>
-                <input type="password" name="password" placeholder="Mot de passe">
-            </div>
-            <button class="btn fw" type="submit">
-                <span>Je me connecte</span>
-                <span class="material-symbols-outlined">
-                  login
-                  </span>
-            </button>
-            <a href="./register.html">Je n'ai pas de compte</a>
-          </form>
         </div>
-      </div>
     </main>
   </body>
 </html>

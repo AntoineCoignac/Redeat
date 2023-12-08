@@ -1,3 +1,15 @@
+<?php
+
+session_start();
+
+// Vérifie si l'utilisateur est connecté
+if (isset($_SESSION["user_id"])) {
+    header("Location: manage.php"); 
+    exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -48,7 +60,7 @@
         <div class="log-form">
           <h2>Connexion</h2>
           <form action="">
-            <a href="./login.html" class="btn fw">
+            <a href="./login.php" class="btn fw">
                 <span>Je me connecte</span>
                 <span class="material-symbols-outlined">
                   login
@@ -57,7 +69,7 @@
             <div class="separator">
               <span>ou</span>
             </div>
-            <a href="./register.html" class="btn secondary fw">
+            <a href="./register.php" class="btn secondary fw">
                 <span>Je m'inscris</span>
                 <span class="material-symbols-outlined">
                   login
